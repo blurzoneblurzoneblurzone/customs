@@ -136,6 +136,55 @@ export default function ScheduleView() {
   };
 
   const renderScheduleCell = (dayIndex: number, timeSlot: any) => {
+    // Проверяем, есть ли день по плану факультета для этого дня
+    const facultyPlan = getFacultyPlanForDay(dayIndex);
+    
+    // Если есть день по плану, показываем специальную ячейку только для первого временного слота
+    if (facultyPlan && timeSlot.number === 1) {
+      return (
+        <div 
+          className="p-2 border-l-4 border-amber-500 bg-gradient-to-r from-amber-50 to-orange-50 shadow-sm"
+          style={{ height: `${DEFAULT_TIME_SLOTS.length * 80}px` }}
+        >
+          <div className="flex items-center justify-center mb-3">
+            <Calendar className="h-4 w-4 mr-2" style={{color: '#0e7a65'}} />
+            <span className="text-sm font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>
+              ПЛАНОВОЕ МЕРОПРИЯТИЕ
+            </span>
+          </div>
+          
+          <div className="space-y-3">
+            <div className="flex items-start space-x-2">
+              <Book className="h-4 w-4 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
+              <div className="text-sm font-medium text-amber-900 leading-tight text-center">
+                {facultyPlan.description}
+              </div>
+            </div>
+            
+            {facultyPlan.details && (
+              <div className="flex items-start space-x-2">
+                <User className="h-4 w-4 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
+                <div className="text-xs leading-tight text-center" style={{color: '#065f46'}}>
+                  {facultyPlan.details}
+                </div>
+              </div>
+            )}
+            
+            <div className="flex items-center justify-center mt-4">
+              <span className="text-xs px-3 py-1 rounded text-white" style={{backgroundColor: '#0e7a65'}}>
+                Учебные занятия не проводятся
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
+    // Если есть день по плану, но это не первый слот - возвращаем пустую ячейку
+    if (facultyPlan && timeSlot.number !== 1) {
+      return null;
+    }
+    
     const scheduleInfo = getScheduleForSlot(dayIndex, timeSlot.id || `slot-${timeSlot.number}`);
     
     if (!scheduleInfo) {
@@ -199,7 +248,6 @@ export default function ScheduleView() {
         </div>
       </div>
     );
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -324,47 +372,8 @@ export default function ScheduleView() {
                 <ChevronRight className="h-4 w-4 ml-1" />
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* Таблица расписания */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden relative">
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">
-              Расписание занятий
-            </h3>
-            <p className="text-sm text-gray-600 mt-1">
-              {faculty?.name} • {selectedCourse} курс • Поток {selectedStream} • Группа {selectedGroup}
-            </p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50">
-                  <th className="w-24 px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">
-                    <Clock className="h-4 w-4 mx-auto" />
-                  </th>
-                  {DAYS_OF_WEEK.map((day, index) => (
-                    <th key={index} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      {day}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {DEFAULT_TIME_SLOTS.map((timeSlot, index) => (
-                  <tr key={index}>
-                    <td className="px-4 py-2 text-center border-r border-gray-200 bg-gray-50">
-                      <div className="text-sm font-medium text-gray-900">
-                        {timeSlot.number}
-                      </div>
-                      <div className="text-xs text-gray-600">
-                        {timeSlot.startTime}
-                      </div>
-                      <div className="text-xs text-gray-600">
-                        {timeSlot.endTime}
-                      </div>
+                    <td key={dayIndex} className="border-r border-gray-200 last:border-r-0">
+                      {renderScheduleCell(dayIndex, timeSlot)}
                     </td>
                     {DAYS_OF_WEEK.map((_, dayIndex) => (
                       <td key={dayIndex} className="border-r border-gray-200 last:border-r-0 relative">
