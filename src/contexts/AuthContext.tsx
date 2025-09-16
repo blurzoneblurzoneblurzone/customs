@@ -6,6 +6,14 @@ const login = async (email: string, password: string): Promise<boolean> => {
       return false;
     }
 
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
     // Проверяем текущую сессию при загрузке
     const checkSession = async () => {
       try {
