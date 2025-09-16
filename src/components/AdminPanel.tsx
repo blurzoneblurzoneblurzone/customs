@@ -29,9 +29,9 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             onClick={() => setActiveTab('schedule')}
             className={`px-6 py-3 font-medium transition-colors ${
               activeTab === 'schedule'
-                ? 'text-blue-600 border-b-2 border-blue-600'
+                ? 'border-b-2' 
                 : 'text-gray-500 hover:text-gray-700'
-            }`}
+            }`} style={activeTab === 'schedule' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <Calendar className="h-4 w-4 inline mr-2" />
             Расписание
@@ -40,9 +40,9 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             onClick={() => setActiveTab('replacements')}
             className={`px-6 py-3 font-medium transition-colors ${
               activeTab === 'replacements'
-                ? 'text-blue-600 border-b-2 border-blue-600'
+                ? 'border-b-2'
                 : 'text-gray-500 hover:text-gray-700'
-            }`}
+            }`} style={activeTab === 'replacements' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <Users className="h-4 w-4 inline mr-2" />
             Замены
@@ -51,9 +51,9 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             onClick={() => setActiveTab('faculty-plan')}
             className={`px-6 py-3 font-medium transition-colors ${
               activeTab === 'faculty-plan'
-                ? 'text-blue-600 border-b-2 border-blue-600'
+                ? 'border-b-2'
                 : 'text-gray-500 hover:text-gray-700'
-            }`}
+            }`} style={activeTab === 'faculty-plan' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <BookOpen className="h-4 w-4 inline mr-2" />
             План факультета
@@ -62,9 +62,9 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             onClick={() => setActiveTab('course-settings')}
             className={`px-6 py-3 font-medium transition-colors ${
               activeTab === 'course-settings'
-                ? 'text-blue-600 border-b-2 border-blue-600'
+                ? 'border-b-2'
                 : 'text-gray-500 hover:text-gray-700'
-            }`}
+            }`} style={activeTab === 'course-settings' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <Settings className="h-4 w-4 inline mr-2" />
             Настройки курсов
@@ -210,7 +210,7 @@ function ScheduleManagement() {
         <h3 className="text-lg font-semibold text-gray-900">Управление расписанием</h3>
         <button
           onClick={() => setShowAddForm(true)}
-          className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center px-4 py-2 text-white rounded-lg hover:opacity-90 transition-colors" style={{backgroundColor: '#0e7a65'}}
         >
           <Plus className="h-4 w-4 mr-2" />
           Добавить занятие
@@ -273,7 +273,7 @@ function ScheduleManagement() {
                   <select
                     value={formData.facultyId}
                     onChange={(e) => setFormData({...formData, facultyId: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
                   >
                     {FACULTIES.map(faculty => (
                       <option key={faculty.id} value={faculty.id}>{faculty.shortName}</option>
@@ -419,7 +419,7 @@ function ScheduleManagement() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex-1 px-4 py-2 text-white rounded-lg hover:opacity-90 transition-colors" style={{backgroundColor: '#0e7a65'}}
                 >
                   Добавить
                 </button>
