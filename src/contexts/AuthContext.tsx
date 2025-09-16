@@ -70,34 +70,52 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   React.useEffect(() => {
     // Проверяем текущую сессию при загрузке
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        setIsAuthenticated(true);
-        setIsSupabaseAuth(true);
-        if (session.user.email === 'admin@goth.su') {
-          setIsAdmin(true);
-        }
-      }
-    });
-
-    // Слушаем изменения состояния аутентификации
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+    const checkSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
         if (session?.user) {
           setIsAuthenticated(true);
           setIsSupabaseAuth(true);
           if (session.user.email === 'admin@goth.su') {
             setIsAdmin(true);
           }
-        } else {
-          setIsAuthenticated(false);
-          setIsAdmin(false);
-          setIsSupabaseAuth(false);
         }
+      } catch (error) {
+        console.log('Session check failed, using fallback auth');
       }
-    );
+    };
+    
+    checkSession();
 
-    return () => subscription.unsubscribe();
+    // Слушаем изменения состояния аутентификации
+    let subscription: any;
+    
+    try {
+      const { data: { subscription: authSubscription } } = supabase.auth.onAuthStateChange(
+        (event, session) => {
+          if (session?.user) {
+            setIsAuthenticated(true);
+            setIsSupabaseAuth(true);
+            if (session.user.email === 'admin@goth.su') {
+              setIsAdmin(true);
+            }
+          } else {
+            setIsAuthenticated(false);
+            setIsAdmin(false);
+            setIsSupabaseAuth(false);
+          }
+        }
+      );
+      subscription = authSubscription;
+    } catch (error) {
+      console.log('Auth state listener failed, using fallback auth');
+    }
+
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
   }, []);
 
   return (
