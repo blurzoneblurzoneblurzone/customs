@@ -13,6 +13,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSupabaseAuth, setIsSupabaseAuth] = useState(false);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
@@ -28,6 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (email === 'admin@goth.su' && password === 'admin123') {
           setIsAuthenticated(true);
           setIsAdmin(true);
+          setIsSupabaseAuth(false);
           return true;
         }
         
@@ -36,6 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (data.user) {
         setIsAuthenticated(true);
+        setIsSupabaseAuth(true);
         // Проверяем, является ли пользователь админом
         if (email === 'admin@goth.su') {
           setIsAdmin(true);
@@ -49,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (email === 'admin@goth.su' && password === 'admin123') {
         setIsAuthenticated(true);
         setIsAdmin(true);
+        setIsSupabaseAuth(false);
         return true;
       }
     }
@@ -56,9 +60,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    if (isSupabaseAuth) {
+      await supabase.auth.signOut();
+    }
     setIsAuthenticated(false);
     setIsAdmin(false);
+    setIsSupabaseAuth(false);
   };
 
   React.useEffect(() => {
@@ -66,6 +73,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
         setIsAuthenticated(true);
+        setIsSupabaseAuth(true);
         if (session.user.email === 'admin@goth.su') {
           setIsAdmin(true);
         }
@@ -77,12 +85,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       (event, session) => {
         if (session?.user) {
           setIsAuthenticated(true);
+          setIsSupabaseAuth(true);
           if (session.user.email === 'admin@goth.su') {
             setIsAdmin(true);
           }
         } else {
           setIsAuthenticated(false);
           setIsAdmin(false);
+          setIsSupabaseAuth(false);
         }
       }
     );
