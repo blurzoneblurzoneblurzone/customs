@@ -248,6 +248,7 @@ export default function ScheduleView() {
         </div>
       </div>
     );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -372,8 +373,46 @@ export default function ScheduleView() {
                 <ChevronRight className="h-4 w-4 ml-1" />
               </button>
             </div>
-                    <td key={dayIndex} className="border-r border-gray-200 last:border-r-0">
-                      {renderScheduleCell(dayIndex, timeSlot)}
+          </div>
+        </div>
+
+        {/* Расписание */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-200">
+                <tr>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-gray-900 border-r border-gray-200">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="h-4 w-4" />
+                      <span>Время</span>
+                    </div>
+                  </th>
+                  {DAYS_OF_WEEK.map((day, index) => (
+                    <th key={index} className="px-4 py-3 text-center text-sm font-medium text-gray-900 border-r border-gray-200 last:border-r-0">
+                      <div className="space-y-1">
+                        <div>{day}</div>
+                        <div className="text-xs text-gray-500 font-normal">
+                          {new Date(getDateForDay(index)).toLocaleDateString('ru-RU', { 
+                            day: '2-digit', 
+                            month: '2-digit' 
+                          })}
+                        </div>
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {DEFAULT_TIME_SLOTS.map((timeSlot, index) => (
+                  <tr key={timeSlot.id} className="border-b border-gray-200 last:border-b-0">
+                    <td className="px-4 py-2 text-sm text-gray-900 border-r border-gray-200 bg-gray-50/50">
+                      <div className="space-y-1">
+                        <div className="font-medium">{timeSlot.number}</div>
+                        <div className="text-xs text-gray-600">
+                          {timeSlot.startTime} - {timeSlot.endTime}
+                        </div>
+                      </div>
                     </td>
                     {DAYS_OF_WEEK.map((_, dayIndex) => (
                       <td key={dayIndex} className="border-r border-gray-200 last:border-r-0 relative">
