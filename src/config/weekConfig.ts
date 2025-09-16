@@ -2,7 +2,7 @@
 // Измените значение currentWeekNumber для установки текущей недели
 export const WEEK_CONFIG = {
   // Номер текущей недели (1-17)
-  currentWeekNumber: 1,
+  currentWeekNumber: 3,
   
   // Дата начала учебного года (первая неделя)
   academicYearStart: '2024-09-01',
