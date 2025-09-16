@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       // Проверяем, настроен ли Supabase
       if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-        console.warn('Supabase не настроен. Нажмите "Connect to Supabase" для настройки.');
+        // Supabase не настроен - не делаем запросы
         return false;
       }
 

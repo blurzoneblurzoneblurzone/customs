@@ -34,7 +34,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     try {
       // Проверяем, настроен ли Supabase
       if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
-        console.warn('Supabase не настроен. Нажмите "Connect to Supabase" для настройки.');
+        // Supabase не настроен - не делаем запросы
         return;
       }
 
@@ -62,6 +62,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const loadReplacements = async () => {
     try {
       if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Supabase не настроен - не делаем запросы
         return;
       }
 
@@ -89,6 +90,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const loadFacultyPlanDays = async () => {
     try {
       if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Supabase не настроен - не делаем запросы
         return;
       }
 
@@ -111,6 +113,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const loadSubjects = async () => {
     try {
       if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Supabase не настроен - не делаем запросы
         return;
       }
 
@@ -133,6 +136,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const loadTeachers = async () => {
     try {
       if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        // Supabase не настроен - не делаем запросы
         return;
       }
 

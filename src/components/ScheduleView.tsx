@@ -255,7 +255,12 @@ export default function ScheduleView() {
       <div className="max-w-7xl mx-auto px-4 py-6">
         {loading && (
           <div className="text-center py-8">
-            <div className="text-lg text-gray-600">Загрузка данных...</div>
+            <div className="text-lg text-gray-600">
+              {import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co' 
+                ? 'Для работы с данными необходимо настроить Supabase. Нажмите "Connect to Supabase" в правом верхнем углу.'
+                : 'Загрузка данных...'
+              }
+            </div>
           </div>
         )}
 
