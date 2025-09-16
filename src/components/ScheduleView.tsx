@@ -405,7 +405,7 @@ export default function ScheduleView() {
                           ) : (
                             <div className="h-20"></div>
                           )
-                            <span className="text-xs font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ЗАМЕНА ЗАНЯТИЯ</span>
+                        ) : (
                           renderScheduleCell(dayIndex, timeSlot)
                         )}
                       </td>
