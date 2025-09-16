@@ -15,7 +15,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-6xl h-5/6 flex flex-col">
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">Панель администратора</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Система управления расписанием</h2>
           <button
             onClick={onClose}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
@@ -45,7 +45,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             }`} style={activeTab === 'replacements' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <Users className="h-4 w-4 inline mr-2" />
-            Замены
+            Замены занятий
           </button>
           <button
             onClick={() => setActiveTab('faculty-plan')}
@@ -56,7 +56,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             }`} style={activeTab === 'faculty-plan' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <BookOpen className="h-4 w-4 inline mr-2" />
-            План факультета
+            Учебный план
           </button>
           <button
             onClick={() => setActiveTab('course-settings')}
@@ -67,7 +67,7 @@ export default function AdminPanel({ onClose }: AdminPanelProps) {
             }`} style={activeTab === 'course-settings' ? {color: '#0e7a65', borderBottomColor: '#0e7a65'} : {}}
           >
             <Settings className="h-4 w-4 inline mr-2" />
-            Настройки курсов
+            Конфигурация
           </button>
         </div>
 
@@ -207,7 +207,7 @@ function ScheduleManagement() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900">Управление расписанием</h3>
+        <h3 className="text-lg font-semibold text-gray-900">Редактирование расписания занятий</h3>
         <button
           onClick={() => setShowAddForm(true)}
           className="flex items-center px-4 py-2 text-white rounded-lg hover:opacity-90 transition-colors" style={{backgroundColor: '#0e7a65'}}
@@ -226,10 +226,10 @@ function ScheduleManagement() {
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Группа</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">День</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Время</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Предмет</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дисциплина</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Преподаватель</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Аудитория</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Неделя</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Тип недели</th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Действия</th>
               </tr>
             </thead>
@@ -264,7 +264,7 @@ function ScheduleManagement() {
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl">
-            <h3 className="text-lg font-semibold mb-4">Добавить занятие</h3>
+            <h3 className="text-lg font-semibold mb-4">Добавление учебного занятия</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -334,7 +334,7 @@ function ScheduleManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Неделя</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Тип недели</label>
                   <select
                     value={formData.weekType}
                     onChange={(e) => setFormData({...formData, weekType: e.target.value as 'odd' | 'even'})}
@@ -374,13 +374,13 @@ function ScheduleManagement() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Название предмета</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Наименование дисциплины</label>
                 <input
                   type="text"
                   value={formData.subjectName}
                   onChange={(e) => setFormData({...formData, subjectName: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Введите название предмета"
+                  placeholder="Введите наименование дисциплины"
                   required
                 />
               </div>
@@ -557,7 +557,7 @@ function ReplacementManagement() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900">Управление заменами</h3>
+        <h3 className="text-lg font-semibold text-gray-900">Управление заменами занятий</h3>
         <button
           onClick={() => setShowAddForm(true)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -576,10 +576,10 @@ function ReplacementManagement() {
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Группа</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дата</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Время</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Предмет</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дисциплина</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Преподаватель</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Аудитория</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Причина</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Основание</th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Действия</th>
               </tr>
             </thead>
@@ -612,7 +612,7 @@ function ReplacementManagement() {
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl">
-            <h3 className="text-lg font-semibold mb-4">Добавить замену</h3>
+            <h3 className="text-lg font-semibold mb-4">Регистрация замены занятия</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
@@ -708,13 +708,13 @@ function ReplacementManagement() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Название предмета</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Наименование дисциплины</label>
                 <input
                   type="text"
                   value={formData.subjectName}
                   onChange={(e) => setFormData({...formData, subjectName: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Введите название предмета"
+                  placeholder="Введите наименование дисциплины"
                   required
                 />
               </div>
@@ -744,13 +744,13 @@ function ReplacementManagement() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Причина замены</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Основание для замены</label>
                 <input
                   type="text"
                   value={formData.reason}
                   onChange={(e) => setFormData({...formData, reason: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Введите причину замены"
+                  placeholder="Укажите основание для замены"
                 />
               </div>
 
@@ -831,7 +831,7 @@ function FacultyPlanManagement() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900">План факультета</h3>
+        <h3 className="text-lg font-semibold text-gray-900">Календарный учебный план</h3>
         <button
           onClick={() => setShowAddForm(true)}
           className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -849,8 +849,8 @@ function FacultyPlanManagement() {
               <tr>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Факультет</th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Дата</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Описание</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Детали</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Мероприятие</th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Примечание</th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase">Действия</th>
               </tr>
             </thead>
@@ -883,7 +883,7 @@ function FacultyPlanManagement() {
       {showAddForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Добавить день по плану</h3>
+            <h3 className="text-lg font-semibold mb-4">Добавление планового мероприятия</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -911,24 +911,24 @@ function FacultyPlanManagement() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Описание</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Наименование мероприятия</label>
                 <input
                   type="text"
                   value={formData.description}
                   onChange={(e) => setFormData({...formData, description: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Например: День открытых дверей"
+                  placeholder="Например: Учебные сборы, День открытых дверей"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Детали</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Дополнительная информация</label>
                 <textarea
                   value={formData.details}
                   onChange={(e) => setFormData({...formData, details: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Дополнительная информация"
+                  placeholder="Место проведения, время, особые указания"
                   rows={3}
                 />
               </div>
@@ -989,7 +989,7 @@ function CourseManagement() {
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-6">
-          Настройки курсов
+          Конфигурация учебных курсов
         </h2>
 
         <div className="overflow-x-auto">
@@ -1035,7 +1035,7 @@ function CourseManagement() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">
-              Редактировать настройки курса
+              Редактирование параметров курса
             </h3>
             
             <div className="space-y-4">

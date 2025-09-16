@@ -374,7 +374,7 @@ export default function ScheduleView() {
                               <div className="h-full p-2 border-l-4 border-amber-500 bg-gradient-to-r from-amber-50 to-orange-50 shadow-sm flex flex-col justify-center">
                                 <div className="flex items-center justify-center mb-2">
                                   <Calendar className="h-4 w-4 mr-2" style={{color: '#0e7a65'}} />
-                                  <span className="text-sm font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ДЕНЬ ПО ПЛАНУ</span>
+                                  <span className="text-sm font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ПЛАНОВОЕ МЕРОПРИЯТИЕ</span>
                                 </div>
                                 
                                 <div className="space-y-2">
@@ -396,7 +396,7 @@ export default function ScheduleView() {
                                   
                                   <div className="flex items-center justify-center mt-3">
                                     <span className="text-xs px-2 py-1 rounded text-white" style={{backgroundColor: '#0e7a65'}}>
-                                      Занятия отменены
+                                      Учебные занятия не проводятся
                                     </span>
                                   </div>
                                 </div>
@@ -405,7 +405,7 @@ export default function ScheduleView() {
                           ) : (
                             <div className="h-20"></div>
                           )
-                        ) : (
+                            <span className="text-xs font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ЗАМЕНА ЗАНЯТИЯ</span>
                           renderScheduleCell(dayIndex, timeSlot)
                         )}
                       </td>
