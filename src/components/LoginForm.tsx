@@ -19,6 +19,13 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
     setError('');
     setIsLoading(true);
 
+    // Проверяем, настроен ли Supabase
+    if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+      setError('Supabase не настроен. Обратитесь к администратору для настройки подключения к базе данных.');
+      setIsLoading(false);
+      return;
+    }
+
     // Имитируем задержку
     await new Promise(resolve => setTimeout(resolve, 500));
 
@@ -27,7 +34,7 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
     if (success) {
       onSuccess();
     } else {
-      setError('Неверный логин или пароль. Попробуйте: admin@goth.su / admin123');
+      setError('Неверный логин или пароль. Обратитесь к администратору.');
     }
 
     setIsLoading(false);

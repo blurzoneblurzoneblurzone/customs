@@ -32,6 +32,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const loadSchedules = async () => {
     try {
+      // Проверяем, настроен ли Supabase
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        console.warn('Supabase не настроен. Нажмите "Connect to Supabase" для настройки.');
+        return;
+      }
+
       const { data, error } = await supabase
         .from('schedules')
         .select('*');
@@ -50,6 +56,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const loadReplacements = async () => {
     try {
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        return;
+      }
+
       const { data, error } = await supabase
         .from('replacements')
         .select('*');
@@ -68,6 +78,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const loadFacultyPlanDays = async () => {
     try {
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        return;
+      }
+
       const { data, error } = await supabase
         .from('faculty_plan_days')
         .select('*');
@@ -86,6 +100,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const loadSubjects = async () => {
     try {
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        return;
+      }
+
       const { data, error } = await supabase
         .from('subjects')
         .select('*');
@@ -104,6 +122,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const loadTeachers = async () => {
     try {
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        return;
+      }
+
       const { data, error } = await supabase
         .from('teachers')
         .select('*');

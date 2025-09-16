@@ -17,6 +17,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
+      // Проверяем, настроен ли Supabase
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        console.warn('Supabase не настроен. Нажмите "Connect to Supabase" для настройки.');
+        return false;
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -72,6 +78,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Проверяем текущую сессию при загрузке
     const checkSession = async () => {
       try {
+        if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+          return;
+        }
+
         const { data: { session } } = await supabase.auth.getSession();
         if (session?.user) {
           setIsAuthenticated(true);
@@ -91,6 +101,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let subscription: any;
     
     try {
+      if (import.meta.env.VITE_SUPABASE_URL === 'https://placeholder.supabase.co') {
+        return;
+      }
+
       const { data: { subscription: authSubscription } } = supabase.auth.onAuthStateChange(
         (event, session) => {
           if (session?.user) {
