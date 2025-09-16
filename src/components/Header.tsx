@@ -42,7 +42,7 @@ export default function Header({ onAdminClick }: HeaderProps) {
               className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-teal-700 transition-colors" style={{backgroundColor: '#0e7a65'}}
             >
               <Settings className="h-4 w-4" />
-              <span className="text-sm font-medium">Админка</span>
+              <span className="text-sm font-medium">Управление</span>
             </button>
 
             {isAdmin && (

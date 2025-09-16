@@ -48,10 +48,10 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
             <Lock className="h-6 w-6" style={{color: '#0e7a65'}} />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
-            Вход в административную панель
+            Вход в систему управления
           </h2>
           <p className="text-sm text-gray-600 mt-2">
-            Доступ только для авторизованных пользователей
+            Доступ только для уполномоченных сотрудников
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
           {error && (
             <div className="flex items-center space-x-2 text-red-600 text-sm bg-red-50 p-3 rounded-lg">
               <AlertCircle className="h-4 w-4 flex-shrink-0" />
-              <span>{error}</span>
+              <span>Неверные учетные данные. Обратитесь к системному администратору.</span>
             </div>
           )}
 
