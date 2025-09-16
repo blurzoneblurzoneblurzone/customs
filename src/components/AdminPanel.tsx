@@ -162,12 +162,12 @@ function ScheduleManagement() {
         .from('schedules')
         .insert({
           id: `schedule-${Date.now()}`,
-          groupid: groupId,
-          dayofweek: formData.dayOfWeek,
-          weektype: formData.weekType,
-          timeslotid: `slot-${formData.timeSlot}`,
-          subjectid: subjectId,
-          teacherid: teacherId,
+          group_id: groupId,
+          day_of_week: formData.dayOfWeek,
+          week_type: formData.weekType,
+          time_slot_id: `slot-${formData.timeSlot}`,
+          subject_id: subjectId,
+          teacher_id: teacherId,
           classroom: formData.classroom
         });
 
@@ -512,11 +512,11 @@ function ReplacementManagement() {
         .from('replacements')
         .insert({
           id: `replacement-${Date.now()}`,
-          groupid: groupId,
+          group_id: groupId,
           date: formData.date,
-          timeslotid: `slot-${formData.timeSlot}`,
-          subjectid: subjectId,
-          teacherid: teacherId,
+          time_slot_id: `slot-${formData.timeSlot}`,
+          subject_id: subjectId,
+          teacher_id: teacherId,
           classroom: formData.classroom,
           reason: formData.reason
         });
@@ -796,7 +796,7 @@ function FacultyPlanManagement() {
         .from('faculty_plan_days')
         .insert({
           id: `plan-${Date.now()}`,
-          facultyid: formData.facultyId,
+          faculty_id: formData.facultyId,
           date: formData.date,
           description: formData.description,
           details: formData.details
@@ -856,7 +856,7 @@ function FacultyPlanManagement() {
             </thead>
             <tbody className="divide-y divide-gray-200">
               {facultyPlanDays.map((plan) => {
-                const faculty = FACULTIES.find(f => f.id === plan.facultyid);
+                const faculty = FACULTIES.find(f => f.id === plan.faculty_id);
                 return (
                   <tr key={plan.id}>
                     <td className="px-4 py-3 text-sm text-gray-900">{faculty?.shortName}</td>

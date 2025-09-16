@@ -40,7 +40,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
       const { data, error } = await supabase
         .from('schedules')
-        .select('*');
+        .select(`
+          *,
+          time_slot:time_slots(number, start_time, end_time),
+          subject:subjects(name, short_name, type),
+          teacher:teachers(name, title)
+        `);
       
       if (error) {
         console.error('Error loading schedules:', error);
@@ -62,7 +67,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
       const { data, error } = await supabase
         .from('replacements')
-        .select('*');
+        .select(`
+          *,
+          time_slot:time_slots(number, start_time, end_time),
+          subject:subjects(name, short_name, type),
+          teacher:teachers(name, title)
+        `);
       
       if (error) {
         console.error('Error loading replacements:', error);

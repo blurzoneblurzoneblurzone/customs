@@ -95,7 +95,7 @@ export default function ScheduleView() {
     const replacement = replacements.find(r => 
       r.groupid === groupId && 
       r.date === date && 
-      r.timeslotid === timeSlotId
+      r.time_slot_id === timeSlotId
     );
     
     if (replacement) {
@@ -104,10 +104,10 @@ export default function ScheduleView() {
 
     // 3. ПРИОРИТЕТ: Обычное расписание
     const schedule = schedules.find(s => 
-      s.groupid === groupId && 
-      s.dayofweek === dayIndex && 
-      s.weektype === currentWeek.weekType && 
-      s.timeslotid === timeSlotId
+      s.group_id === groupId && 
+      s.day_of_week === dayIndex && 
+      s.week_type === currentWeek.weekType && 
+      s.time_slot_id === timeSlotId
     );
 
     if (schedule) {
@@ -122,7 +122,7 @@ export default function ScheduleView() {
     const date = getDateForDay(dayIndex);
     
     return facultyPlanDays.find(plan => {
-      return plan.facultyid === selectedFaculty && plan.date === date;
+      return plan.faculty_id === selectedFaculty && plan.date === date;
     });
   };
 
@@ -199,8 +199,8 @@ export default function ScheduleView() {
 
     const isReplacement = scheduleInfo.type === 'replacement';
     const data = scheduleInfo.data;
-    const subject = subjects.find(s => s.id === data.subjectid);
-    const teacher = teachers.find(t => t.id === data.teacherid);
+    const subject = data.subject || subjects.find(s => s.id === data.subject_id);
+    const teacher = data.teacher || teachers.find(t => t.id === data.teacher_id);
 
     return (
       <div className={`h-20 p-2 border-l-4 border-b border-gray-100 ${
@@ -225,14 +225,14 @@ export default function ScheduleView() {
           <div className="flex items-start space-x-1">
             <Book className="h-3 w-3 text-gray-500 mt-0.5 flex-shrink-0" />
             <div className="text-xs font-medium text-gray-900 leading-tight">
-              {subject?.name || data.subjectid}
+              {subject?.name || data.subject_id}
             </div>
           </div>
           
           <div className="flex items-start space-x-1">
             <User className="h-3 w-3 text-gray-500 mt-0.5 flex-shrink-0" />
             <div className="text-xs text-gray-700 leading-tight">
-              {teacher?.name || data.teacherid}
+              {teacher?.name || data.teacher_id}
             </div>
           </div>
           
