@@ -142,8 +142,8 @@ export default function ScheduleView() {
       return (
         <div className="h-20 p-2 border-b border-gray-100 bg-gray-50/30">
           <div className="h-full flex items-center justify-center text-gray-400">
-            ? 'bg-gradient-to-r from-teal-50 to-emerald-50 shadow-sm' 
-            : 'bg-white border-slate-300'
+            -
+          </div>
         </div>
       );
     }
@@ -159,11 +159,6 @@ export default function ScheduleView() {
           ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-500 shadow-sm' 
           : 'bg-white border-slate-300'
       }`}>
-        <div className={`h-20 p-2 border-l-4 border-b border-gray-100 ${
-          isReplacement 
-            ? 'bg-gradient-to-r from-teal-50 to-emerald-50 shadow-sm' 
-            : 'bg-white border-slate-300'
-        }`} style={isReplacement ? {borderLeftColor: '#0e7a65'} : {}}>
         {isReplacement && (
           <div className="flex items-center justify-center mb-1">
             <AlertTriangle className="h-3 w-3 mr-1" style={{color: '#0e7a65'}} />
@@ -197,9 +192,6 @@ export default function ScheduleView() {
               <MapPin className="h-3 w-3 text-gray-500" />
               <span className="text-xs text-gray-600">{data.classroom}</span>
             </div>
-            <span className={`text-xs px-1 py-0.5 rounded text-white ${
-              subject?.type === 'lecture' ? 'bg-blue-500' : 'bg-green-500'
-            }`}>
             <span className={`text-xs px-1 py-0.5 rounded text-white`} style={{backgroundColor: subject?.type === 'lecture' ? '#0e7a65' : '#059669'}}>
               {subject?.type === 'lecture' ? 'Лек' : 'П/з'}
             </span>
@@ -225,7 +217,7 @@ export default function ScheduleView() {
             <h3 className="font-medium text-gray-900">Фильтры</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Факультет
@@ -276,23 +268,23 @@ export default function ScheduleView() {
                 ))}
               </select>
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Группа
-            </label>
-            <select
-              value={selectedGroup}
-              onChange={(e) => setSelectedGroup(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
-            >
-              {availableGroups.map(groupNum => (
-                <option key={groupNum} value={groupNum}>
-                  {groupNum}
-                </option>
-              ))}
-            </select>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Группа
+              </label>
+              <select
+                value={selectedGroup}
+                onChange={(e) => setSelectedGroup(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
+              >
+                {availableGroups.map(groupNum => (
+                  <option key={groupNum} value={groupNum}>
+                    {groupNum}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
@@ -381,13 +373,13 @@ export default function ScheduleView() {
                             <div className="absolute inset-0 z-10" style={{ height: `${DEFAULT_TIME_SLOTS.length * 80}px` }}>
                               <div className="h-full p-2 border-l-4 border-amber-500 bg-gradient-to-r from-amber-50 to-orange-50 shadow-sm flex flex-col justify-center">
                                 <div className="flex items-center justify-center mb-2">
-                                  <Calendar className="h-4 w-4 text-amber-600 mr-2" />
-                                  <span className="text-sm font-bold text-amber-800 uppercase tracking-wide">ДЕНЬ ПО ПЛАНУ</span>
+                                  <Calendar className="h-4 w-4 mr-2" style={{color: '#0e7a65'}} />
+                                  <span className="text-sm font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ДЕНЬ ПО ПЛАНУ</span>
                                 </div>
                                 
                                 <div className="space-y-2">
                                   <div className="flex items-start space-x-1">
-                                    <Book className="h-3 w-3 text-amber-600 mt-0.5 flex-shrink-0" />
+                                    <Book className="h-3 w-3 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
                                     <div className="text-sm font-medium text-amber-900 leading-tight text-center">
                                       {getFacultyPlanForDay(dayIndex)?.description}
                                     </div>
@@ -395,26 +387,26 @@ export default function ScheduleView() {
                                   
                                   {getFacultyPlanForDay(dayIndex)?.details && (
                                     <div className="flex items-start space-x-1">
-                                      <User className="h-3 w-3 text-amber-600 mt-0.5 flex-shrink-0" />
-                                      <div className="text-xs text-amber-800 leading-tight text-center">
+                                      <User className="h-3 w-3 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
+                                      <div className="text-xs leading-tight text-center" style={{color: '#065f46'}}>
                                         {getFacultyPlanForDay(dayIndex)?.details}
                                       </div>
-                            <Calendar className="h-4 w-4 mr-2" style={{color: '#0e7a65'}} />
-                            <span className="text-sm font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ДЕНЬ ПО ПЛАНУ</span>
+                                    </div>
+                                  )}
                                   
                                   <div className="flex items-center justify-center mt-3">
-                                    <span className="text-xs px-2 py-1 rounded text-white bg-amber-600">
+                                    <span className="text-xs px-2 py-1 rounded text-white" style={{backgroundColor: '#0e7a65'}}>
                                       Занятия отменены
-                              <Book className="h-3 w-3 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
-                              <span className="text-xs px-2 py-1 rounded text-white" style={{backgroundColor: '#0e7a65'}}>
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           ) : (
                             <div className="h-20"></div>
                           )
-                                <User className="h-3 w-3 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
-                                <div className="text-xs leading-tight text-center" style={{color: '#065f46'}}>
+                        ) : (
+                          renderScheduleCell(dayIndex, timeSlot)
                         )}
                       </td>
                     ))}
