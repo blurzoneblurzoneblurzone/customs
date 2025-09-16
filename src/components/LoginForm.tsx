@@ -44,8 +44,8 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
         </button>
 
         <div className="text-center mb-6">
-          <div className="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-            <Lock className="h-6 w-6 text-blue-600" />
+          <div className="mx-auto w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mb-4">
+            <Lock className="h-6 w-6" style={{color: '#0e7a65'}} />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
             Вход в административную панель
@@ -67,7 +67,7 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent" style={{'--tw-ring-color': '#0e7a65'} as any}
                 placeholder="Введите email"
                 required
               />
@@ -85,7 +85,7 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent" style={{'--tw-ring-color': '#0e7a65'} as any}
                 placeholder="Введите пароль"
                 required
               />
@@ -110,7 +110,7 @@ export default function LoginForm({ onSuccess, onClose }: LoginFormProps) {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="flex-1 px-4 py-2 text-white rounded-lg hover:opacity-90 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors" style={{backgroundColor: '#0e7a65', '--tw-ring-color': '#0e7a65'} as any}
             >
               {isLoading ? 'Вход...' : 'Войти'}
             </button>

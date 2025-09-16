@@ -142,8 +142,8 @@ export default function ScheduleView() {
       return (
         <div className="h-20 p-2 border-b border-gray-100 bg-gray-50/30">
           <div className="h-full flex items-center justify-center text-gray-400">
-            <span className="text-xs">—</span>
-          </div>
+            ? 'bg-gradient-to-r from-teal-50 to-emerald-50 shadow-sm' 
+            : 'bg-white border-slate-300'
         </div>
       );
     }
@@ -159,15 +159,20 @@ export default function ScheduleView() {
           ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-500 shadow-sm' 
           : 'bg-white border-slate-300'
       }`}>
+        <div className={`h-20 p-2 border-l-4 border-b border-gray-100 ${
+          isReplacement 
+            ? 'bg-gradient-to-r from-teal-50 to-emerald-50 shadow-sm' 
+            : 'bg-white border-slate-300'
+        }`} style={isReplacement ? {borderLeftColor: '#0e7a65'} : {}}>
         {isReplacement && (
           <div className="flex items-center justify-center mb-1">
-            <AlertTriangle className="h-3 w-3 text-blue-600 mr-1" />
-            <span className="text-xs font-bold text-blue-800 uppercase tracking-wide">ЗАМЕНА</span>
+            <AlertTriangle className="h-3 w-3 mr-1" style={{color: '#0e7a65'}} />
+            <span className="text-xs font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ЗАМЕНА</span>
           </div>
         )}
         
         {isReplacement && data.reason && (
-          <div className="text-xs text-blue-600 text-center mb-1 italic">
+          <div className="text-xs text-center mb-1 italic" style={{color: '#0e7a65'}}>
             {data.reason}
           </div>
         )}
@@ -195,6 +200,7 @@ export default function ScheduleView() {
             <span className={`text-xs px-1 py-0.5 rounded text-white ${
               subject?.type === 'lecture' ? 'bg-blue-500' : 'bg-green-500'
             }`}>
+            <span className={`text-xs px-1 py-0.5 rounded text-white`} style={{backgroundColor: subject?.type === 'lecture' ? '#0e7a65' : '#059669'}}>
               {subject?.type === 'lecture' ? 'Лек' : 'П/з'}
             </span>
           </div>
@@ -227,7 +233,7 @@ export default function ScheduleView() {
               <select
                 value={selectedFaculty}
                 onChange={(e) => setSelectedFaculty(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
               >
                 {FACULTIES.map(faculty => (
                   <option key={faculty.id} value={faculty.id}>
@@ -244,7 +250,7 @@ export default function ScheduleView() {
               <select
                 value={selectedCourse}
                 onChange={(e) => setSelectedCourse(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
               >
                 {availableCourses.map(course => (
                   <option key={course.id} value={course.number}>
@@ -261,7 +267,7 @@ export default function ScheduleView() {
               <select
                 value={selectedStream}
                 onChange={(e) => setSelectedStream(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
               >
                 {availableStreams.map(streamNum => (
                   <option key={streamNum} value={streamNum}>
@@ -279,7 +285,7 @@ export default function ScheduleView() {
             <select
               value={selectedGroup}
               onChange={(e) => setSelectedGroup(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2" style={{'--tw-ring-color': '#0e7a65'} as any}
             >
               {availableGroups.map(groupNum => (
                 <option key={groupNum} value={groupNum}>
@@ -295,7 +301,7 @@ export default function ScheduleView() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigateWeek('prev')}
-              className="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              className="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style={{'--hover-text-color': '#0e7a65'}}
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Предыдущая
@@ -313,14 +319,14 @@ export default function ScheduleView() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => navigateWeek('current')}
-                className="flex items-center px-3 py-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors text-sm"
+                className="flex items-center px-3 py-2 hover:opacity-80 rounded-lg transition-colors text-sm" style={{color: '#0e7a65', backgroundColor: 'rgba(14, 122, 101, 0.1)'}}
               >
                 <Calendar className="h-4 w-4 mr-1" />
                 Текущая
               </button>
               <button
                 onClick={() => navigateWeek('next')}
-                className="flex items-center px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="flex items-center px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
               >
                 Следующая
                 <ChevronRight className="h-4 w-4 ml-1" />
@@ -393,22 +399,22 @@ export default function ScheduleView() {
                                       <div className="text-xs text-amber-800 leading-tight text-center">
                                         {getFacultyPlanForDay(dayIndex)?.details}
                                       </div>
-                                    </div>
-                                  )}
+                            <Calendar className="h-4 w-4 mr-2" style={{color: '#0e7a65'}} />
+                            <span className="text-sm font-bold uppercase tracking-wide" style={{color: '#0e7a65'}}>ДЕНЬ ПО ПЛАНУ</span>
                                   
                                   <div className="flex items-center justify-center mt-3">
                                     <span className="text-xs px-2 py-1 rounded text-white bg-amber-600">
                                       Занятия отменены
-                                    </span>
-                                  </div>
+                              <Book className="h-3 w-3 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
+                              <span className="text-xs px-2 py-1 rounded text-white" style={{backgroundColor: '#0e7a65'}}>
                                 </div>
                               </div>
                             </div>
                           ) : (
                             <div className="h-20"></div>
                           )
-                        ) : (
-                          renderScheduleCell(dayIndex, timeSlot)
+                                <User className="h-3 w-3 mt-0.5 flex-shrink-0" style={{color: '#0e7a65'}} />
+                                <div className="text-xs leading-tight text-center" style={{color: '#065f46'}}>
                         )}
                       </td>
                     ))}
